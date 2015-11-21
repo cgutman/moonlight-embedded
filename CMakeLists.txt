@@ -1,5 +1,5 @@
 project(moonlight-embedded C)
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.0)
 SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 include(${CMAKE_ROOT}/Modules/GNUInstallDirs.cmake)
 
@@ -12,6 +12,7 @@ aux_source_directory(./src SRC_LIST)
 aux_source_directory(./src/input SRC_LIST)
 
 set(MOONLIGHT_DEFINITIONS)
+set(CMAKE_C_FLAGS "-std=gnu99 -g")
 
 find_package(ALSA REQUIRED)
 find_package(Opus REQUIRED)
