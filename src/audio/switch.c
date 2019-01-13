@@ -48,17 +48,13 @@ static int switch_audio_init(int audioConfiguration, POPUS_MULTISTREAM_CONFIGURA
   specWant.freq = opusConfig->sampleRate;
   specWant.format = AUDIO_S16LSB;
   specWant.channels = opusConfig->channelCount;
-  specWant.samples = 4096;
+  specWant.samples = FRAME_SIZE;
 
   // Open the SDL audio device
-  audioDevice = SDL_OpenAudioDevice(NULL, 0, &specWant, &specHave, SDL_AUDIO_ALLOW_FORMAT_CHANGE);
+  audioDevice = SDL_OpenAudioDevice(NULL, 0, &specWant, &specHave, 0);
   if (audioDevice == 0) {
     fprintf(stderr, "[AUDIO] Failed to open SDL audio device: %s\n", SDL_GetError());
     goto err;
-  }
-
-  if (specHave.format != specWant.format) {
-      fprintf(stderr, "[AUDIO] Opened SDL audio device with different format: want=%d have=%d\n", specWant.format, specHave.format);
   }
 
   // Begin audio playing on the device
